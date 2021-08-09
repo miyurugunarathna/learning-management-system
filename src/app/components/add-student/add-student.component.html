@@ -1,0 +1,44 @@
+<div class="col-md-6 offset-md-3">
+    <h3>Create Student</h3>
+    <form #AddStudentForm = "ngForm" (ngSubmit) = "onSubmit()" method = "POST">
+    
+        <div class="form-group">
+            <label> ID</label>
+            <input type="text" class ="form-control" id = "id" name = "id"
+                [(ngModel)] = "student.sid" #id="ngModel">
+        </div>
+
+        <div class="form-group">
+            <label> First Name</label>
+            <input type="text" class ="form-control" id = "fname" name = "fname"
+                required minlength="3" [(ngModel)] = "student.fname" #fname="ngModel">
+                <div *ngIf="fname.invalid && (fname.dirty || fname.touched)" class="alert">
+                    <div *ngIf="fname.errors?.required">First name is required.</div>
+                    <div *ngIf="fname.errors?.minlength">First name must be at least 3 characters long.</div>
+                </div>
+        </div>
+        
+        <div class="form-group">
+            <label> Last Name</label>
+            <input type="text" class ="form-control" id = "lname" name = "lname"
+                required minlength="3" [(ngModel)] = "student.lname" #lname="ngModel">
+                <div *ngIf="lname.invalid && (lname.dirty || lname.touched)" class="alert">
+                    <div *ngIf="lname.errors?.required">Last name is required.</div>
+                    <div *ngIf="lname.errors?.minlength">Last name must be at least 3 characters long.</div>
+                </div>
+        </div>
+
+        <div class="form-group">
+            <label> Email Address</label>
+            <input type="text" class ="form-control" id = "email" name = "email"
+                required [(ngModel)] = "student.email" #email="ngModel">
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert">
+                    <div *ngIf="email.errors?.required">Email is required.</div>
+                </div>
+        </div>
+
+        <button class="btn btn-primary" [disabled]="!AddStudentForm.valid" type="submit">Submit</button>
+        <button class="btn btn-primary" (click)="reset()">Reset</button>
+
+    </form>
+</div>

@@ -1,0 +1,42 @@
+<div class="col-md-10 offset-md-1">
+<h2>Student List</h2>
+
+
+
+<div class="input-group">
+    <select class="form-select">
+      <option selected>Select status...</option>
+      <option value="1">Pending approval</option>
+      <option value="2">Approved</option>
+      <option value="3">Rejected</option>
+    </select>
+    <button class="btn btn-primary" type="button">filter</button>
+  </div>
+
+
+
+<table class="table mt-3">
+    <thead class="table-light">
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let student of students">
+            <td> {{ student.sid }} </td>
+            <td> {{ student.fname }} </td>
+            <td> {{ student.lname }} </td>
+            <td> {{ student.email }} </td>
+            <td>
+                <button class="btn btn-info">Edit</button>
+                &nbsp;<button (click) = "deleteStudent(student.id)" class="btn btn-danger">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+                                                    
+</div>
