@@ -8,23 +8,31 @@ public class Student {
 	
 	@Id
 	private String id;
-	private String sid;
+	private String pid;
 	private String fname;
 	private String lname;
+	private String dob;
+	private String gender;
+	private Number phone;
 	private String email;
+	private String password;
 	
 	public Student() {}
 	
 	public String getId() {
 		return id;
 	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 	
-	public String getSid() {
-		return sid;
+	public String getPid() {
+		return pid;
 	}
 
-	public void setSid(String id) {
-		this.sid = id;
+	public void setPid(String id) {
+		this.pid = id;
 	}
 
 	public String getFname() {
@@ -35,20 +43,28 @@ public class Student {
 		this.fname = fname;
 	}
 
-	public String getLname() {
-		return lname;
-	}
+	public String getLname() { return lname; }
 
-	public void setLname(String lname) {
-		this.lname = lname;
-	}
+	public void setLname(String lname) { this.lname = lname; }
 
-	public String getEmail() {
-		return email;
-	}
+	public String getDob() { return dob; }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
+	public void setDob(String dob) { this.dob = dob; }
+
+	public String getGender() { return gender; }
+
+	public void setGender(String gender) { this.gender = gender; }
+
+	public Number getPhone() { return phone; }
+
+	public void setPhone(Number phone) { this.phone = phone; }
+
+	public String getEmail() { return email; }
+
+	public void setEmail(String email) { this.email = email; }
+
+	public String getPassword() { return password; }
+
+	public void setPassword(String password) { this.password = password; }
+
 }
