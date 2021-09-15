@@ -57,10 +57,18 @@ public class BadgeController {
 
 
     @PutMapping("badge/update/{id}")
-    public String updateBadge(@RequestBody Badge badge) {
+//    public String updateBadge(@RequestBody Badge badge){
+//        badge.setBadgeID(id);
+//        badgeService.save(badge);
+//        return "Updated badge with id " + badge.getBadgeID();
+//    }
+
+    public String updateBadge(@RequestBody Badge badge, @PathVariable String id){
+        badge.setBadgeID(id);
         badgeService.save(badge);
         return "Updated badge with id " + badge.getBadgeID();
-    }
+}
+
 }
 
 
