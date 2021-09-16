@@ -6,8 +6,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document (collection = "students")
-public class Student {
+@Document (collection = "teachers")
+public class Teacher {
 	
 	@Id
 	private String id;
@@ -17,16 +17,23 @@ public class Student {
 	private String dob;
 	private String gender;
 	private Number phone;
-	private String role;
 	private String email;
 	private String password;
+	private String title;
+	private String description;
+	private String university;
+	private String bank;
+	private String branch;
+	private int accnum;
 	private String approved;
 	private Boolean active;
+	
+	private String role;
 	
 	@DBRef
     private Set<Role> roles;
 	
-	public Student() {}
+	public Teacher() {}
 	
 	public String getId() {
 		return id;
@@ -76,6 +83,54 @@ public class Student {
 
 	public void setPassword(String password) { this.password = password; }
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getUniversity() {
+		return university;
+	}
+
+	public void setUniversity(String university) {
+		this.university = university;
+	}
+
+	public String getBank() {
+		return bank;
+	}
+
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+
+	public String getBranch() {
+		return branch;
+	}
+
+	public void setBranch(String branch) {
+		this.branch = branch;
+	}
+
+	public int getAccnum() {
+		return accnum;
+	}
+
+	public void setAccnum(int accnum) {
+		this.accnum = accnum;
+	}
+
 	public String getApproved() {
 		return approved;
 	}
@@ -106,7 +161,7 @@ public class Student {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
-	
+
+
 
 }
