@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.springframework.data:spring-data-rest-core:3.6.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-rest-core/3.6.0-SNAPSHOT/spring-data-rest-core-3.6.0-20210914.205908-142.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-rest-core/3.6.0-SNAPSHOT/spring-data-rest-core-3.6.0-20210914.205908-142-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-rest-core/3.6.0-SNAPSHOT/spring-data-rest-core-3.6.0-20210914.205908-142-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
