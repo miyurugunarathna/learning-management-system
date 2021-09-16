@@ -22,16 +22,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lms.api.model.Student;
+import com.lms.api.exception.TeacherNotFoundException;
+import com.lms.api.model.Teacher;
 import com.lms.api.repository.StudentRepository;
-//import com.lms.api.repository.UserRepository;
+import com.lms.api.repository.TeacherRepository;
+//import com.lms.api.exception.TeacherNotFoundException;
 import com.lms.api.security.jwt.JwtTokenProvider;
-import com.lms.api.exception.StudentNotFoundException;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/student")
-public class StudentController {
+@RequestMapping("/api/teacher")
+public class TeacherController {
+
+	private final TeacherRepository TRepo;
 	
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -40,66 +43,70 @@ public class StudentController {
 	JwtTokenProvider jwtTokenProvider;
 	
 	@Autowired
-	StudentRepository students;
+	TeacherRepository teachers;
 
-	private final StudentRepository SRepo;
 
-	StudentController (StudentRepository repository) {
-		this.SRepo = repository;
+	TeacherController (TeacherRepository repository) {
+		this.TRepo = repository;
 	}
 
-	// API to get all students
+	// API to get all teachers
 	@GetMapping("/all")
-	public List<Student> list() {
-		return SRepo.findAll();
+	public List<Teacher> listTeachers() {
+		return TRepo.findAll();
 	}
 
-	// API to get student by ID
+	// API to get teacher by ID
 	@GetMapping("/get/{id}")
-	public Student get(@PathVariable String id) {
-		return SRepo.findById(id)
-				.orElseThrow(() -> new StudentNotFoundException(id));
+	public Teacher getTeacher(@PathVariable String id) {
+		return TRepo.findById(id)
+				.orElseThrow(() -> new TeacherNotFoundException(id));
 	}
 
-	// API to create a student
+	// API to create a teacher
 	@PostMapping("/add")
-	Student create(@RequestBody Student newStudent) {
-		newStudent.setRole("Student");
-		newStudent.setApproved("Pending");
-		newStudent.setActive(true);
-		return SRepo.save(newStudent);
+	Teacher createTeacher(@RequestBody Teacher newTeacher) {
+		newTeacher.setRole("Teacher");
+		newTeacher.setApproved("Pending");
+		newTeacher.setActive(true);
+		return TRepo.save(newTeacher);
 	}
 
-	// API to update a student
+	// API to update a teacher
 	@PutMapping("/update/{id}")
-	public Student update(@PathVariable String id, @RequestBody Student student) {
-		return SRepo.findById(id)
-				.map(s -> {
-					s.setPid(student.getPid());
-					s.setFname(student.getFname());
-					s.setLname(student.getLname());
-					s.setDob(student.getDob());
-					s.setGender(student.getGender());
-					s.setPhone(student.getPhone());
-					s.setEmail(student.getEmail());
-					s.setPassword(student.getPassword());
-					s.setApproved(student.getApproved());
-					s.setActive(student.getActive());
-					s.setRole(student.getRole());
-					return SRepo.save(s);
+	public Teacher updateTeacher(@PathVariable String id, @RequestBody Teacher teacher) {
+		return TRepo.findById(id)
+				.map(t -> {
+					t.setPid(teacher.getPid());
+					t.setFname(teacher.getFname());
+					t.setLname(teacher.getLname());
+					t.setDob(teacher.getDob());
+					t.setGender(teacher.getGender());
+					t.setPhone(teacher.getPhone());
+					t.setEmail(teacher.getEmail());
+					t.setPassword(teacher.getPassword());
+					t.setTitle(teacher.getTitle());
+					t.setDescription(teacher.getDescription());
+					t.setUniversity(teacher.getUniversity());
+					t.setBank(teacher.getBank());
+					t.setBranch(teacher.getBranch());
+					t.setAccnum(teacher.getAccnum());
+					t.setApproved(teacher.getApproved());
+					t.setActive(teacher.getActive());
+					t.setRole(teacher.getRole());
+					return TRepo.save(t);
 				})
 				.orElseGet(() -> {
-					student.setId(id);
-					return SRepo.save(student);
+					teacher.setId(id);
+					return TRepo.save(teacher);
 				});
 	}
 
-	// API to delete a student
+	// API to delete a teacher
 	@DeleteMapping("/delete/{id}")
-	public void delete(@PathVariable String id) {
-		SRepo.deleteById(id);
+	public void deleteTeacher(@PathVariable String id) {
+		TRepo.deleteById(id);
 	}
-	
 	
 	@SuppressWarnings("rawtypes")
 	@PostMapping("/login")
@@ -107,7 +114,7 @@ public class StudentController {
 		try {
 			String username = data.getEmail();
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
-			String token = jwtTokenProvider.createToken(username, this.students.findByEmail(username).getRoles());
+			String token = jwtTokenProvider.createToken(username, this.teachers.findByEmail(username).getRoles());
 			Map<Object, Object> model = new HashMap<>();
 			model.put("username", username);
 			model.put("token", token);
@@ -116,5 +123,4 @@ public class StudentController {
 			throw new BadCredentialsException("Invalid email/password supplied");
 		}
 	}
-	
 }
