@@ -45,28 +45,24 @@ public class BadgeController {
     @PostMapping("/addbadge")
     public String saveBadge(@RequestBody Badge badge) {
         badgeService.save(badge);
-        return "Added badge with id " + badge.getBadgeID();
+        return "Badge added successfully";
     }
 
 
     // API to delete a badge
     @DeleteMapping("badge/delete/{id}")
     public ResponseEntity<Map<String, Boolean>> delete(@PathVariable String id) {
+
         return badgeService.delete(id);
+
     }
 
-
+    // API to update a badge
     @PutMapping("badge/update/{id}")
-//    public String updateBadge(@RequestBody Badge badge){
-//        badge.setBadgeID(id);
-//        badgeService.save(badge);
-//        return "Updated badge with id " + badge.getBadgeID();
-//    }
-
     public String updateBadge(@RequestBody Badge badge, @PathVariable String id){
         badge.setBadgeID(id);
         badgeService.save(badge);
-        return "Updated badge with id " + badge.getBadgeID();
+        return "Badge updated successfully";
 }
 
 }
