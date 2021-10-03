@@ -23,8 +23,13 @@ public class Marksendpoint {
 
 
     @GetMapping("/{key}")
-    public List<Marks> addMarks(@PathVariable String key){
+    public List<Marks> addMarks(@PathVariable String key ){
         return marksApi.addMarks(key);
+    }
+
+    @GetMapping("/student/{sid}")
+    public List<Marks> getMarksBystudentid(@PathVariable String sid){
+        return marksApi.getMarksbystudentid(sid);
     }
 
 }

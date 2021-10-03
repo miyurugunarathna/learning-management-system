@@ -33,9 +33,15 @@ public class StudentEnrollmentTestendpoint {
 
      }
 
-     @GetMapping("/{teacherID}")
-     public List<StudentEnrollmentTest> getAllByTeacherID(@PathVariable String teacherID){
+    @GetMapping("/teacher/{teacherID}")
+    public List<StudentEnrollmentTest> getAllByTeacherID(@PathVariable String teacherID){
 
         return studentEnrollmentTestApi.getAllByTeacherID(teacherID);
-     }
+    }
+
+    @GetMapping("/student/{studentID}")
+    public List<StudentEnrollmentTest> getAllByStudentID(@PathVariable String studentID){
+
+        return studentEnrollmentTestApi.getAllByStudentID(studentID);
+    }
 }
