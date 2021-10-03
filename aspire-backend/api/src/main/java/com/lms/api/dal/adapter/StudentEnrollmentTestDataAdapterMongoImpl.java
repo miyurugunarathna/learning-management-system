@@ -47,4 +47,25 @@ public class StudentEnrollmentTestDataAdapterMongoImpl implements StudentEnrollm
         }
         return studentEnrollmentTests;
     }
+
+
+
+
+    @Override
+    public List<StudentEnrollmentTest> getAllByStudentID(String studentID) {
+
+        List<StudentEnrollmentTestModel> studentEnrollmentTestModels = repository.findStudentEnrollmentTestModelByStudentID(studentID);
+        List<StudentEnrollmentTest> studentEnrollmentTests = new ArrayList<>();
+
+        for(StudentEnrollmentTestModel studentEnrollmentTestModel: studentEnrollmentTestModels){
+            StudentEnrollmentTest studentEnrollmentTest = new StudentEnrollmentTest();
+            studentEnrollmentTest.setStudentID(studentEnrollmentTestModel.getStudentID());
+            studentEnrollmentTest.setTeacherID(studentEnrollmentTestModel.getTeacherID());
+            studentEnrollmentTest.setClassID(studentEnrollmentTestModel.getClassID());
+            studentEnrollmentTest.setSubjectID(studentEnrollmentTestModel.getSubjectID());
+            studentEnrollmentTest.setEnrollID(studentEnrollmentTestModel.getEnrollID());
+            studentEnrollmentTests.add(studentEnrollmentTest);
+        }
+        return studentEnrollmentTests;
+    }
 }

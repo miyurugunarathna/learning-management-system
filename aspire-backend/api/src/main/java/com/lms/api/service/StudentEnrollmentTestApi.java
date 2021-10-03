@@ -25,4 +25,8 @@ public class StudentEnrollmentTestApi {
     public List<StudentEnrollmentTest> getAllByTeacherID(String teacherID){
         return studentEnrollmentTestDataAdapter.getAllByTeacherID(teacherID);
     }
+
+    public List<StudentEnrollmentTest> getAllByStudentID(String studentID){
+        return studentEnrollmentTestDataAdapter.getAllByStudentID(studentID);
+    }
 }

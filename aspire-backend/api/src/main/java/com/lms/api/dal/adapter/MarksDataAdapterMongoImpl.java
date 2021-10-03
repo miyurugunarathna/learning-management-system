@@ -1,15 +1,13 @@
 package com.lms.api.dal.adapter;
 
 import com.lms.api.dal.model.AnswerModel;
+import com.lms.api.dal.model.ExamModel;
 import com.lms.api.dal.model.MarksModel;
 import com.lms.api.dal.model.QuizModel;
 import com.lms.api.dal.repository.AnswerMongoRepository;
 import com.lms.api.dal.repository.MarksMongoRepository;
 import com.lms.api.dal.repository.QuizMongoRepository;
-import com.lms.api.domain.Answer;
-import com.lms.api.domain.Marks;
-import com.lms.api.domain.MarksDataAdapter;
-import com.lms.api.domain.Quiz;
+import com.lms.api.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
@@ -33,10 +31,11 @@ public class MarksDataAdapterMongoImpl implements MarksDataAdapter {
         this.repository2 = marksMongoRepository;
     }
     @Override
-    public List<Marks> Save(String key) {
+    public List<Marks> Save(String key ) {
         List<QuizModel> quizModels = repository.findQuizModelByExamID(key);
         List<AnswerModel> answerModels =repository1.findAnswerModelByKey(key);
         List<Marks> marks2 = new ArrayList<>();
+
         String[] ans = new String[10];
         int count = 0;
         int top=0;
@@ -48,7 +47,6 @@ public class MarksDataAdapterMongoImpl implements MarksDataAdapter {
 
         }
         for (AnswerModel answerModel: answerModels){
-
             MarksModel marksModel = new MarksModel();
             Marks marks =new Marks();
 
@@ -94,13 +92,33 @@ public class MarksDataAdapterMongoImpl implements MarksDataAdapter {
             marks.setQ_marks(marksModel.getQ_marks());
             marks2.add(marks);
 
-            count=0;
+            count = 0;
 
 
         }
 
 
 
+
         return marks2;
     }
+
+    @Override
+    public List<Marks> getAllByStudentID(String studentid) {
+        List<MarksModel> marksModels = repository2.findMarksModelBySid(studentid);
+        List<Marks> marks = new ArrayList<>();
+
+        for(MarksModel marksModel: marksModels){
+            Marks marks1 = new Marks();
+            marks1.setKey(marksModel.getKey());
+            marks1.setMid(marksModel.getMid());
+            marks1.setQ_marks(marksModel.getQ_marks());
+            marks1.setSid(marksModel.getSid());
+
+
+            marks.add(marks1);
+        }
+        return marks;
+    }
+
 }

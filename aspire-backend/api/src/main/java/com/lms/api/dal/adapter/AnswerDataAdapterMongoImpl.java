@@ -1,10 +1,14 @@
 package com.lms.api.dal.adapter;
 
 import com.lms.api.dal.model.AnswerModel;
+import com.lms.api.dal.model.MarksModel;
+import com.lms.api.dal.model.QuizModel;
 import com.lms.api.dal.repository.AnswerMongoRepository;
+import com.lms.api.dal.repository.MarksMongoRepository;
 import com.lms.api.dal.repository.QuizMongoRepository;
 import com.lms.api.domain.Answer;
 import com.lms.api.domain.AnswerDataAdapter;
+import com.lms.api.domain.Marks;
 import com.lms.api.domain.Quiz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -16,19 +20,36 @@ import java.util.List;
 @Component
 public class AnswerDataAdapterMongoImpl implements AnswerDataAdapter {
     private final AnswerMongoRepository repository;
+    private final QuizMongoRepository repository2;
+    private final MarksMongoRepository repository3;
     private final MongoTemplate mongoTemplate;
 
     @Autowired
-    public AnswerDataAdapterMongoImpl(AnswerMongoRepository repository,MongoTemplate mongoTemplate){
+    public AnswerDataAdapterMongoImpl(AnswerMongoRepository repository,MongoTemplate mongoTemplate,QuizMongoRepository quizMongoRepository,MarksMongoRepository marksMongoRepository){
         this.repository = repository;
+        this.repository2 = quizMongoRepository;
+        this.repository3 = marksMongoRepository;
         this.mongoTemplate = mongoTemplate;
     }
 
     @Override
     public Answer Save(Answer answer) {
+        String[] ans = new String[10];
+        int count = 0;
+        int top=0;
         AnswerModel answerModel = new AnswerModel();
+        Marks marks =new Marks();
+        MarksModel marksModel = new MarksModel();
         answerModel.setStudentID(answer.getStudentID());
         answerModel.setKey(answer.getKey());
+        List<QuizModel> quizModels = repository2.findQuizModelByExamID(answer.getKey());
+        for(QuizModel quizModel: quizModels){
+
+            ans[top]=quizModel.getAnswer();
+
+            top=top+1;
+
+        }
         answerModel.setAnswer0(answer.getAnswer0());
         answerModel.setAnswer1(answer.getAnswer1());
         answerModel.setAnswer2(answer.getAnswer2());
@@ -41,6 +62,38 @@ public class AnswerDataAdapterMongoImpl implements AnswerDataAdapter {
         answerModel.setAnswer9(answer.getAnswer9());
         answerModel=repository.save(answerModel);
         answer.setTestID(answerModel.getTestID());
+
+        if(ans[0].equals(answer.getAnswer0())){
+            count=count+1;
+        }
+        if(ans[1].equals(answer.getAnswer1())){
+            count=count+1;
+        }
+        if(ans[2].equals(answer.getAnswer2())){
+            count=count+1;
+        }
+        if(ans[3].equals(answer.getAnswer3())){
+            count=count+1;
+        }
+        if(ans[4].equals(answer.getAnswer4())){
+            count=count+1;
+        }
+        if(ans[5].equals(answer.getAnswer5())){
+            count=count+1;
+        }
+        if(ans[6].equals(answer.getAnswer6())){
+            count=count+1;
+        }
+        if(ans[7].equals(answer.getAnswer7())){
+            count=count+1;
+        }
+        if(ans[8].equals(answer.getAnswer8())){
+            count=count+1;
+        }
+        if(ans[9].equals(answer.getAnswer9())){
+            count=count+1;
+        }
+
         return answer;
     }
 

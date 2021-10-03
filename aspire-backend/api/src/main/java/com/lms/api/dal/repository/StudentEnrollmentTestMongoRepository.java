@@ -10,4 +10,6 @@ import java.util.List;
 public interface StudentEnrollmentTestMongoRepository extends MongoRepository<StudentEnrollmentTestModel,String> {
 
     List<StudentEnrollmentTestModel>findStudentEnrollmentTestModelByTeacherID(String teacherID);
+
+    List<StudentEnrollmentTestModel> findStudentEnrollmentTestModelByStudentID(String studentID);
 }

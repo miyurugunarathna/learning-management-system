@@ -19,7 +19,13 @@ public class MarksApi {
         this.marksDataAdapter = marksDataAdapter;
     }
 
-    public List<Marks> addMarks(String key){
+    public List<Marks> addMarks(String key ){
         return marksDataAdapter.Save(key);
     }
+
+    public List<Marks> getMarksbystudentid(String studentid){
+        return marksDataAdapter.getAllByStudentID(studentid);
+    }
+
+
 }

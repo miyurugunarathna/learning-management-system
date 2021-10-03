@@ -10,4 +10,5 @@ import java.util.List;
 public interface AnswerMongoRepository extends MongoRepository<AnswerModel,String> {
     void deleteAnswerModelByTestID(String testID);
     List<AnswerModel>findAnswerModelByKey(String key);
+    List<AnswerModel>findAnswerModelByStudentID(String studentid);
 }
